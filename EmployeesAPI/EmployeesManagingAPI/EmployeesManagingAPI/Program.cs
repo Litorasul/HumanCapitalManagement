@@ -1,4 +1,5 @@
 using EmployeesManagingAPI.Data;
+using EmployeesManagingAPI.Services.DataAccess;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,6 +12,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContextFactory<EmployeesDbContext>((DbContextOptionsBuilder options) => options.UseNpgsql(connectionString));
+
+builder.Services.AddTransient<IPositionDataAccessService, PositionDataAccessService>();
 
 var app = builder.Build();
 
