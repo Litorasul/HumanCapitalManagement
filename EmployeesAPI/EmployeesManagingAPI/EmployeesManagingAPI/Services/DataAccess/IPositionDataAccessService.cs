@@ -10,5 +10,6 @@ namespace EmployeesManagingAPI.Services.DataAccess
         PositionExportDTO GetPositionById(int id);
         PositionExportDTO GetPositionByName(string name);
         Task UpdatePosition(int id, PositionImportDTO positionDTO);
+        List<PositionExportDTO> GetAllPositions();
     }
 }

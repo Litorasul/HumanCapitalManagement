@@ -30,6 +30,22 @@ public class EmployeesController : ControllerBase
         }
     }
 
+
+    //GET ..api/employees/all 
+    [HttpGet("all")]
+    public ActionResult<List<EmployeeExportDTO>> GetAllEmployees()
+    {
+        try
+        {
+            var employees = _employeeDataAccessService.GetAllEmployees();
+            return Ok(employees);
+        }
+        catch (NullReferenceException ex)
+        {
+            return NotFound(ex.Message);
+        }
+    }
+
     //GET ..api/employees/manager?managerId=1
     [HttpGet("manager")]
     public ActionResult<List<EmployeeExportDTO>> GetAllEmployeesForManager(int managerId)

@@ -31,6 +31,21 @@ public class PositionsController : ControllerBase
         }
     }
 
+    //GET ..api/positions/all
+    [HttpGet("all")]
+    public ActionResult<List<PositionExportDTO>> GetAllPositions()
+    {
+        try
+        {
+            var positions = _positionDataAccessService.GetAllPositions();
+            return Ok(positions);
+        }
+        catch (NullReferenceException ex)
+        {
+            return NotFound(ex.Message);
+        }
+    }
+
     //Post ..api/positions/create
     [HttpPost("create")]
     public async Task<ActionResult<int>> CreatePosition([FromBody] PositionImportDTO position)

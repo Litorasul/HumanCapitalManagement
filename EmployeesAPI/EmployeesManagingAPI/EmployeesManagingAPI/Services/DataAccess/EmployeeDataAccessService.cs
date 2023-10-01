@@ -72,6 +72,28 @@ public class EmployeeDataAccessService : IEmployeeDataAccessService
         return result;
     }
 
+    public List<EmployeeExportDTO> GetAllEmployees()
+    {
+        var result = new List<EmployeeExportDTO>();
+        var employees = _context.Employees.ToList();
+
+        foreach (var employee in employees)
+        {
+            var dto = new EmployeeExportDTO
+            {
+                Id = employee.Id,
+                Name = employee.Name,
+                Email = employee.Email,
+                Salary = employee.Salary,
+                PositionId = employee.PositionId,
+                ManagerId = employee.ManagerId
+            };
+            result.Add(dto);
+        }
+
+        return result;
+    }
+
     public List<EmployeeExportDTO> GetAllEmployeesOnAPosition(int positionId)
     {
         _positionDataAccessService.GetPositionById(positionId);

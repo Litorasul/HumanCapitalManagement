@@ -41,6 +41,26 @@ public class PositionDataAccessService : IPositionDataAccessService
         };
     }
 
+    public List<PositionExportDTO> GetAllPositions()
+    {
+        var positions = _context.Positions.ToList();
+        if (positions == null) { throw new NullReferenceException($"No Positions in the Database!"); }
+
+        var result = new List<PositionExportDTO>();
+        foreach (var position in positions)
+        {
+            var dto = new PositionExportDTO
+            {
+                Id = position.Id,
+                Name = position.Name,
+                MinSalary = position.MinSalary,
+                MaxSalary = position.MaxSalary
+            };
+            result.Add(dto);
+        }
+        return result;
+    }
+
     public async Task<int> CreatePosition(PositionImportDTO positionDTO)
     {
         var position = new Position
