@@ -74,7 +74,6 @@ public class PositionDataAccessService : IPositionDataAccessService
         if (position == null) { throw new NullReferenceException($"Position with ID: {id} does not exist in the Database!"); }
 
         _context.Positions.Remove(position);
-
         await _context.SaveChangesAsync();
     }
 }

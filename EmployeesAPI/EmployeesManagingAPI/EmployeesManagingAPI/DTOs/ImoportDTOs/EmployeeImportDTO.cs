@@ -1,5 +1,5 @@
 ﻿namespace EmployeesManagingAPI.DTOs.ImoportDTOs;
-public class EmployeeImpotrDTO
+public class EmployeeImportDTO
 {
     public string Name { get; set; }
     public string? Email { get; set; }

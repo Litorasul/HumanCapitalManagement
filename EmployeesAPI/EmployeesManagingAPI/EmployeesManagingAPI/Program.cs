@@ -15,6 +15,7 @@ builder.Services.AddDbContextFactory<EmployeesDbContext>((DbContextOptionsBuilde
 
 builder.Services.AddTransient<IPositionDataAccessService, PositionDataAccessService>();
 builder.Services.AddTransient<IDepartmentDataAccessService, DepartmentDataAccessService>();
+builder.Services.AddTransient<IEmployeeDataAccessService, EmployeeDataAccessService>();
 
 var app = builder.Build();
 

@@ -65,7 +65,7 @@ public class DepartmentDataAccessService : IDepartmentDataAccessService
         await _context.SaveChangesAsync();
     }
 
-    public async Task AddManagerToDepartment(int id, int managerId)
+    public async Task AddOrUpdateManagerToDepartment(int id, int managerId)
     {
         var department = _context.Departments.Where(d => d.Id == id).FirstOrDefault();
         if (department == null) { throw new NullReferenceException($"Department with ID: {id} does not exist in the Database!"); }
