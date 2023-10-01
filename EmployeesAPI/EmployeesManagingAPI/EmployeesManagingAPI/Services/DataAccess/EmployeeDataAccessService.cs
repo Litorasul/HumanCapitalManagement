@@ -7,9 +7,9 @@ namespace EmployeesManagingAPI.Services.DataAccess;
 public class EmployeeDataAccessService : IEmployeeDataAccessService
 {
     private readonly EmployeesDbContext _context;
-    private readonly PositionDataAccessService _positionDataAccessService;
+    private readonly IPositionDataAccessService _positionDataAccessService;
 
-    public EmployeeDataAccessService(EmployeesDbContext context, PositionDataAccessService positionDataAccessService)
+    public EmployeeDataAccessService(EmployeesDbContext context, IPositionDataAccessService positionDataAccessService)
     {
         _context = context;
         _positionDataAccessService = positionDataAccessService;

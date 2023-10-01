@@ -6,6 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("Default") ?? throw new NullReferenceException("No ConnectionString in config!");
 
+
+
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -16,6 +18,8 @@ builder.Services.AddDbContextFactory<EmployeesDbContext>((DbContextOptionsBuilde
 builder.Services.AddTransient<IPositionDataAccessService, PositionDataAccessService>();
 builder.Services.AddTransient<IDepartmentDataAccessService, DepartmentDataAccessService>();
 builder.Services.AddTransient<IEmployeeDataAccessService, EmployeeDataAccessService>();
+
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
@@ -34,6 +38,7 @@ using (var serviceScope = app.Services.CreateScope())
 }
 
 app.UseHttpsRedirection();
+app.MapControllers();
 
 app.Run();
 
