@@ -15,6 +15,21 @@ public class DepartmentsController : ControllerBase
         _dataAccessService = dataAccessService;
     }
 
+    //GET ..api/department/id?id=1 
+    [HttpGet("id")]
+    public ActionResult<DepartmentExportDTO> GetDepartmentById(int id)
+    {
+        try
+        {
+            var department = _dataAccessService.GetDepartmentById(id);
+            return Ok(department);
+        }
+        catch (NullReferenceException ex)
+        {
+            return NotFound(ex.Message);
+        }
+    }
+
     //GET ..api/department/search?name=foo 
     [HttpGet("search")]
     public ActionResult<DepartmentExportDTO> GetDepartmentByName(string name)

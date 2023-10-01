@@ -1,4 +1,6 @@
 using DataAnalysisAPI.Data;
+using DataAnalysisAPI.Services;
+using DataAnalysisAPI.Services.BusinessLogic;
 using DataAnalysisAPI.Services.DataAccess;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,6 +20,10 @@ builder.Services.AddDbContextFactory<DataAnalysisDbContext>((DbContextOptionsBui
 
 builder.Services.AddTransient<ISalarySpendDetailsDataAccessService, SalarySpendDetailsDataAccessService>();
 builder.Services.AddTransient<IEmployeeApiDataAccessService, EmployeeApiDataAccessService>();
+builder.Services.AddTransient<IDailySalaryAnalysisBuisnessLogicService, DailySalaryAnalysisBuisnessLogicService>();
+builder.Services.AddHttpClient();
+
+builder.Services.AddHostedService<DailyJobService>();
 
 var app = builder.Build();
 

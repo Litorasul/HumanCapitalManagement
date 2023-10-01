@@ -42,4 +42,20 @@ public class EmployeeApiDataAccessService : IEmployeeApiDataAccessService
 
         return result;
     }
+
+    public async Task<DepartmentExportDTO> GetDepartmentById(int id)
+    {
+        var path = $"https://localhost:44302/api/Departments/id?id={id}";
+        var client = _httpClientFactory.CreateClient();
+
+        var result = new DepartmentExportDTO();
+        HttpResponseMessage response = await client.GetAsync(path);
+        if (response.IsSuccessStatusCode)
+        {
+            var json = await response.Content.ReadAsStringAsync();
+            result = JsonConvert.DeserializeObject<DepartmentExportDTO>(json);
+        }
+
+        return result;
+    }
 }

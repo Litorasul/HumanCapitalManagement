@@ -6,5 +6,6 @@ namespace DataAnalysisAPI.Services.DataAccess
     {
         Task<List<EmployeeExportDTO>> GetAllEmployees();
         Task<List<PositionExportDTO>> GetAllPositions();
+        Task<DepartmentExportDTO> GetDepartmentById(int id);
     }
 }
