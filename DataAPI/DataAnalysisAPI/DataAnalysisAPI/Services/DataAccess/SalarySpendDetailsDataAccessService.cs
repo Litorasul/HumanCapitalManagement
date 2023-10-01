@@ -5,7 +5,7 @@ using DataAnalysisAPI.Models;
 
 namespace DataAnalysisAPI.Services.DataAccess;
 
-public class SalarySpendDetailsDataAccessService
+public class SalarySpendDetailsDataAccessService : ISalarySpendDetailsDataAccessService
 {
     private readonly DataAnalysisDbContext _context;
 
@@ -37,10 +37,10 @@ public class SalarySpendDetailsDataAccessService
 
     public List<SalarySpendDailyExportDTO> GetAllSalarySpendDetailsForAPeriod(DateTime from, DateTime to)
     {
-       var dailySpends = _context.SalarySpendDetailsDailies.Where(s => s.InsertedTime >= from &&  s.InsertedTime <= to).ToList();
+        var dailySpends = _context.SalarySpendDetailsDailies.Where(s => s.InsertedTime >= from && s.InsertedTime <= to).ToList();
 
         var result = new List<SalarySpendDailyExportDTO>();
-        foreach ( var spend in dailySpends )
+        foreach (var spend in dailySpends)
         {
             var dto = new SalarySpendDailyExportDTO
             {
@@ -49,7 +49,7 @@ public class SalarySpendDetailsDataAccessService
                 SmallestSalary = spend.SmallestSalary,
                 DepartmentWithSmallestSalary = spend.DepartmentWithSmallestSalary,
                 LargestSalary = spend.LargestSalary,
-                DepartmentWithLargestSalary= spend.DepartmentWithLargestSalary
+                DepartmentWithLargestSalary = spend.DepartmentWithLargestSalary
             };
             result.Add(dto);
         }

@@ -1,4 +1,5 @@
 using DataAnalysisAPI.Data;
+using DataAnalysisAPI.Services.DataAccess;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContextFactory<DataAnalysisDbContext>((DbContextOptionsBuilder options) => options.UseNpgsql(connectionString));
+
+builder.Services.AddTransient<ISalarySpendDetailsDataAccessService, SalarySpendDetailsDataAccessService>();
+builder.Services.AddTransient<IEmployeeApiDataAccessService, EmployeeApiDataAccessService>();
 
 var app = builder.Build();
 
