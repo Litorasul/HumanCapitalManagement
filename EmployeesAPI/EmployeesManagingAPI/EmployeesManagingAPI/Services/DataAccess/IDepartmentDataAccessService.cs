@@ -7,7 +7,7 @@ namespace EmployeesManagingAPI.Services.DataAccess
     {
         Task AddOrUpdateManagerToDepartment(int id, int managerId);
         Task<int> CreateDepartment(DepartmentImportDTO dto);
-        Task DeletePosition(int id);
+        Task DeleteDepartment(int id);
         DepartmentExportDTO GetDepartmentById(int id);
         DepartmentExportDTO GetDepartmentByName(string name);
         Task UpdateDepartment(int id, DepartmentImportDTO dto);

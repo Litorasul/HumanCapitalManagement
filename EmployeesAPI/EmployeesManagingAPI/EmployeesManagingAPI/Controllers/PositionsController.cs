@@ -58,11 +58,11 @@ public class PositionsController : ControllerBase
         }
         catch (NullReferenceException ex)
         {
-            return NotFound();
+            return NotFound(ex.Message);
         }
     }
 
-    //Delete ..api/positions/delete&id=1s
+    //Delete ..api/positions/delete&id=1
     [HttpDelete("delete")]
     public async Task<IActionResult> DeletePosition(int id)
     {
@@ -71,9 +71,9 @@ public class PositionsController : ControllerBase
             await _positionDataAccessService.DeletePosition(id);
             return Ok();
         }
-        catch (NullReferenceException)
+        catch (NullReferenceException ex)
         {
-            return NotFound();
+            return NotFound(ex.Message);
         }
     }
 }
