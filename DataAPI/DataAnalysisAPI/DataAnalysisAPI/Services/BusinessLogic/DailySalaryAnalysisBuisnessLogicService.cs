@@ -22,9 +22,11 @@ public class DailySalaryAnalysisBuisnessLogicService : IDailySalaryAnalysisBuisn
 
         return new SalarySpendDailyImportDTO
         {
-            InsertedTime = DateTime.Now,
+            InsertedTime = DateTime.UtcNow,
             SmallestSalary = personWithSmallestSalary.Salary,
+            DepartmentWithSmallestSalary = "Foo",
             LargestSalary = personWithLargestSalary.Salary,
+            DepartmentWithLargestSalary = "Bar",
             TotalSpend = total
         };
     }
