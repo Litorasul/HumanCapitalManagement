@@ -31,6 +31,22 @@ public class EmployeeDataAccessService : IEmployeeDataAccessService
         };
     }
 
+    public EmployeeExportDTO GetEmployeeByName(string name)
+    {
+        var employee = _context.Employees.Where(e => e.Name == name).FirstOrDefault();
+        if (employee == null) { throw new NullReferenceException($"Employee with Name: {name} does not exist in the Database!"); }
+
+        return new EmployeeExportDTO
+        {
+            Id = employee.Id,
+            Name = employee.Name,
+            Email = employee.Email,
+            Salary = employee.Salary,
+            PositionId = employee.PositionId,
+            ManagerId = employee.ManagerId
+        };
+    }
+
     public List<EmployeeExportDTO> GetAllEmployeesForAManager(int managerId)
     {
         var manager = _context.Employees.Where(m => m.Id == managerId).FirstOrDefault();

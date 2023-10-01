@@ -13,5 +13,7 @@ namespace EmployeesManagingAPI.Services.DataAccess
         List<EmployeeExportDTO> GetAllEmployeesOnAPosition(int positionId);
         EmployeeExportDTO GetEmployeeById(int id);
         Task UpdateEmployee(int id, EmployeeImportDTO employeeImportDTO);
+
+        EmployeeExportDTO GetEmployeeByName(string name);
     }
 }
