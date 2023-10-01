@@ -1,4 +1,5 @@
-﻿using DataAnalysisAPI.Services.DataAccess;
+﻿using DataAnalysisAPI.DTOs.ExportDTOs;
+using DataAnalysisAPI.Services.DataAccess;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DataAnalysisAPI.Controllers;
@@ -13,5 +14,18 @@ public class SalaryDetailsController : ControllerBase
         _dataAccessService = dataAccessService;
     }
 
-
+    //GET ..api/SalaryDetails/search?name=foo 
+    [HttpGet]
+    public ActionResult<List<SalarySpendDailyExportDTO>> GetSalaryDetailsForAPeriod(DateTime from, DateTime to)
+    {
+        try
+        {
+            var salarySpends = _dataAccessService.GetAllSalarySpendDetailsForAPeriod(from, to);
+            return Ok(salarySpends);
+        }
+        catch (NullReferenceException ex)
+        {
+            return NotFound(ex.Message);
+        }
+    }
 }
