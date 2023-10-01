@@ -17,6 +17,7 @@ public class PositionDataAccessService : IPositionDataAccessService
     {
         var position = _context.Positions.Where(p => p.Id == id).FirstOrDefault();
         if (position == null) { throw new NullReferenceException($"Position with ID: {id} does not exist in the Database!"); }
+
         return new PositionExportDTO
         {
             Id = id,
@@ -30,6 +31,7 @@ public class PositionDataAccessService : IPositionDataAccessService
     {
         var position = _context.Positions.Where(p => p.Name == name).FirstOrDefault();
         if (position == null) { throw new NullReferenceException($"Position with Name: {name} does not exist in the Database!"); }
+
         return new PositionExportDTO
         {
             Id = position.Id,
@@ -47,8 +49,10 @@ public class PositionDataAccessService : IPositionDataAccessService
             MinSalary = positionDTO.MinSalary,
             MaxSalary = positionDTO.MaxSalary
         };
+
         await _context.Positions.AddAsync(position);
         await _context.SaveChangesAsync();
+
         return position.Id;
     }
 
@@ -56,6 +60,7 @@ public class PositionDataAccessService : IPositionDataAccessService
     {
         var position = _context.Positions.Where(p => p.Id == id).FirstOrDefault();
         if (position == null) { throw new NullReferenceException($"Position with ID: {id} does not exist in the Database!"); }
+
         position.Name = positionDTO.Name;
         position.MinSalary = positionDTO.MinSalary;
         position.MaxSalary = positionDTO.MaxSalary;
@@ -67,7 +72,9 @@ public class PositionDataAccessService : IPositionDataAccessService
     {
         var position = _context.Positions.Where(p => p.Id == id).FirstOrDefault();
         if (position == null) { throw new NullReferenceException($"Position with ID: {id} does not exist in the Database!"); }
+
         _context.Positions.Remove(position);
+
         await _context.SaveChangesAsync();
     }
 }

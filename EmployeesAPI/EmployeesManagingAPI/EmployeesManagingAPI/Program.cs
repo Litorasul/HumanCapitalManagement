@@ -14,6 +14,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContextFactory<EmployeesDbContext>((DbContextOptionsBuilder options) => options.UseNpgsql(connectionString));
 
 builder.Services.AddTransient<IPositionDataAccessService, PositionDataAccessService>();
+builder.Services.AddTransient<IDepartmentDataAccessService, DepartmentDataAccessService>();
 
 var app = builder.Build();
 
