@@ -1,4 +1,10 @@
+using DataAnalysisAPI.Data;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+var connectionString = builder.Configuration.GetConnectionString("Default") ?? throw new NullReferenceException("No ConnectionString in config!");
+
 
 // Add services to the container.
 
@@ -6,6 +12,8 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddDbContextFactory<DataAnalysisDbContext>((DbContextOptionsBuilder options) => options.UseNpgsql(connectionString));
 
 var app = builder.Build();
 
@@ -16,9 +24,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
+// Apply Migrations
+using (var serviceScope = app.Services.CreateScope())
+{
+    var dbContext = serviceScope.ServiceProvider.GetRequiredService<DataAnalysisDbContext>();
+    dbContext.Database.Migrate();
+}
 
-app.UseAuthorization();
+app.UseHttpsRedirection();
 
 app.MapControllers();
 
