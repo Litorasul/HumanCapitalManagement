@@ -2,7 +2,7 @@
 using Newtonsoft.Json;
 
 namespace HumanCapitalClient.Services;
-public class DataAnalysisDataAccessService
+public class DataAnalysisDataAccessService : IDataAnalysisDataAccessService
 {
     private readonly IHttpClientFactory _httpClientFactory;
 

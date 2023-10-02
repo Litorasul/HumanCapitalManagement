@@ -1,4 +1,5 @@
 using HumanCapitalClient.Data;
+using HumanCapitalClient.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +17,9 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddRazorPages();
 
 builder.Services.AddHttpClient();
+
+builder.Services.AddTransient<IDataAnalysisDataAccessService, DataAnalysisDataAccessService>();
+builder.Services.AddTransient<IEmployeesDataAccessService, EmployeesDataAccessService>();
 
 var app = builder.Build();
 
