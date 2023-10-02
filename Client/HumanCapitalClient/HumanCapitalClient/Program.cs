@@ -10,7 +10,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite("DataSource=app.db"));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddRazorPages();
 
@@ -44,4 +45,36 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 
-app.Run();
+// Seed Roles 
+using (var serviceScope = app.Services.CreateScope())
+{
+    var roleManager = serviceScope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+    var roles = new[] {"Admin", "Manager", "Worker" };
+    foreach (var role in roles)
+    {
+        if (!await roleManager.RoleExistsAsync(role))
+            await roleManager.CreateAsync(new IdentityRole(role));
+    }
+}
+
+// Create Admin account
+using (var serviceScope = app.Services.CreateScope())
+{
+    var userManager = serviceScope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+
+    string email = "admin@admin.aa";
+    string password = "Admin1Password!";
+
+    if (await userManager.FindByEmailAsync(email) == null)
+    {
+        var admin = new IdentityUser();       
+        admin.UserName = email;
+        admin.Email = email;
+       
+        await userManager.CreateAsync(admin, password);
+
+        await userManager.AddToRoleAsync(admin, "Admin");
+    }
+}
+
+ app.Run();
