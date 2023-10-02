@@ -3,7 +3,21 @@
 @{
     ViewData["Title"] = "Home page";
 }
-
+@if (User.IsInRole("Admin"))
+{
+    <h1>Wellcome Admin!</h1>
+    <h3>I am a teapot!</h3>
+}
+else if (User.IsInRole("Manager"))
+{
+    <h1>Wellcome Manager!</h1>
+    <h3>Money makes the wourld go around!</h3>
+}
+else if (User.IsInRole("Worker"))
+{
+    <h1>Wellcome Worker!</h1>
+    <h3>Working is fun, isn't it!'</h3>
+}
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
